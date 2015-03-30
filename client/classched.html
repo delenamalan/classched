@@ -3,6 +3,8 @@
 	<link rel="shortcut icon" href="icon.ico">
 </head>
 <body>
+	<h1>Timetable calculator</h1>
+	<br>
 	{{ > loadSchool }}
 	{{ > createSchool }}
 	{{ > timetableTemplate }}
@@ -41,13 +43,13 @@
 		</p>
 		<form id="teacherForm">
 			<label for="teacherName">Name:</label>
-			<input id="teacherName" type="text" placeholder="John Doe">
+			<input id="teacherName" type="text" placeholder="(Teacher Name)">
 			<label for="teacherClass">Class:</label>
-			<input id="teacherClass" type="text" placeholder="Class 101">
+			<input id="teacherClass" type="text" placeholder="(Class 101)">
 			<label for="classPeriods">Periods in week:</label>
 			<input id="classPeriods" type="number" min=1 max={{ days }} step=1 value={{ days }}>
-			<button id="saveClass">Save Class</button>
-			<button id="saveTeacher">Save Teacher</button>
+			<button id="saveClass">Add Class</button> <br>
+			<button id="saveTeacher">Add Teacher</button>
 		</form>
 		<ul id="teacherClasses">
 			{{ #each teacherClasses }}
@@ -66,14 +68,14 @@
 		</p>
 		<form id="studentForm">
 			<label for="studentType">Student type:</label>
-			<input id="studentType" type="text" placeholder="Type 0">
+			<input id="studentType" type="text" placeholder="(Student Type)">
 			<label for="addStudentClass">Classes</label>
 			<select id="addStudentClass">
 				{{ #each classes }}
 				<option value={{ this }}>{{ this }}</option>
 				{{ /each }}
 			</select>
-			<button id="saveStudent">Save Student</button>
+			<button id="saveStudent">Add Student</button>
 		</form>
 		<ul id="studentClasses">
 			{{ #each studentClasses }}
@@ -81,12 +83,12 @@
 			{{ /each }}
 		</ul>
 	</div>
-	<button id="calc">Calculate!</button>
+	<button id="calc">Calculate timetables!</button>
 </div>
 </template>
-
-<template name="timetableTemplate">
-<div id="timetableTemplate">
+<template name="timetableTemplate" >
+<div id="timetableTemplate" class="out">
+	<div id="timetableHeader">
 	<select id="personsTimetable">
 		{{ #each teachers }}
 		<option value={{ name }}>{{ name }}</option>
@@ -96,6 +98,7 @@
 		{{ /each }}
 	</select>
 	<label for="personsTimetable">'s Timetable</label>
+	</div>
 	<table id="timetable">
 	</table>
 </div>

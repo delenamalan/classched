@@ -38,6 +38,7 @@ Session.set("teachers", []);
          });
          document.getElementById("daysInCycle").value = Session.get("daysInCycle");
          document.getElementById("periodsInDay").value = Session.get("periodsInDay");
+         document.getElementById("schoolName").value = "Sample school";
      }
  });
 
@@ -103,10 +104,18 @@ Session.set("teachers", []);
      table.setAttribute("style", "display:block");
      var row, cell;
      var numPeriods = tt.timetable[0].length;
+     row = table.insertRow(0);
+    cell = row.insertCell(period);
+     for (var period = 0; period < numPeriods; period++) {
+        cell = row.insertCell(period+1);
+        cell.innerHTML = "Period " + period;
+     }
      for (var day = 0; day < tt.timetable.length; day++) {
-         row = table.insertRow(day);
+         row = table.insertRow(day+1);
+         cell = row.insertCell(0);
+         cell.innerHTML = "Day " + (day+1);
          for (var period = 0; period < numPeriods; period++) {
-             cell = row.insertCell(period);
+             cell = row.insertCell(period+1);
              cell.innerHTML = tt.timetable[day][period];
          }
      }
@@ -207,25 +216,28 @@ Session.set("teachers", []);
      },
      'click #calc': function() {
         event.preventDefault();
-         console.log("Get server to calculate the timetables");
-         Meteor.call('calculateTimetables', Session.get("teachers"), Session.get("students"), Session.get("daysInCycle"), 
-          Session.get("periodsInDay"), function(err, response) {
-             if (err) {
-                 console.log(err.reason);
-             } else {
-                 console.log("Successful calculation");
-             }
-         });
-         $('#editParticipants').fadeOut(100, function() {
-             $(this).remove();
-         });
-         $('#createSchool').fadeOut(100, function() {
-             $(this).remove();
-         });
-         $('#loadSchool').fadeOut(100, function() {
-             $(this).remove();
-         });
-         changeTimetable();
-         return false;
+        if (document.getElementById("schoolName").value.length >= 3) {
+           console.log("Get server to calculate the timetables");
+           Meteor.call('calculateTimetables', Session.get("teachers"), Session.get("students"), Session.get("daysInCycle"), 
+            Session.get("periodsInDay"), function(err, response) {
+               if (err) {
+                   console.log(err.reason);
+               } else {
+                   console.log("Successful calculation");
+               }
+           });
+           $('#editParticipants').fadeOut(100, function() {
+               $(this).remove();
+           });
+           $('#createSchool').fadeOut(100, function() {
+               $(this).remove();
+           });
+           $('#loadSchool').fadeOut(100, function() {
+               $(this).remove();
+           });
+           document.getElementById("timetableTemplate").className = "in"; 
+           changeTimetable();
+           return false;
+      }
      }
  });

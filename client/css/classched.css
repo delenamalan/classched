@@ -1,0 +1,155 @@
+body {
+	width: auto;
+	font-size: 130%;
+	margin: 3vw 3vw 0 3vw;
+	background-color: #99CCFF;
+	background-image: url("background.png");
+	font-family: "Lepatin", "Georgia", serif;
+	color: #212b31;
+	overflow: hidden;
+}
+
+h1 {
+	margin-top: -2%;
+	padding-top: 0;
+	float: left;
+	clear: both;
+}
+
+@font-face {
+	font-family: Lepatin;
+	src: url("OSP_Le-patin-helvete.ttf");
+}
+
+.out {
+	transform: translate(200%, 0);
+}
+
+.in {
+	transform: translate(0, 0);
+}
+
+label {
+	font-size: 130%;
+}
+
+input {
+	border: 0;
+	outline: 0;
+	font-family: "Lepatin", "Georgia", serif;
+	font-size: 130%;
+	width: 20%;
+	background: none;
+	color: #EFF5FA;
+	margin-right: 1vw;
+}
+
+input::-webkit-input-placeholder {
+	color: #F5F264;
+}
+
+button {
+	border: 0;
+	outline: 0;
+	cursor: pointer;
+	background: rgba(0, 51, 153, 0.7);
+	color: #EFF5FA;
+	font-family: "Lepatin", "Georgia", serif;
+	padding: 0.4% 0.4% 0.4% 0.4%;
+	transition: background 0.5s linear, color 0.3s ease-in-out;
+	border-radius: 0.3em;
+	font-size: 120%;
+}
+
+select {
+	border: 0;
+	outline: 0;
+	cursor: pointer;
+	background: rgba(0, 51, 153, 0.9);
+	color: #EFF5FA;
+	font-family: "Lepatin", "Georgia", serif;
+	padding: 0.3% 0.3% 0.3% 0.3%;
+	transition: background 0.5s linear, color 0.3s ease-in-out;
+	border-radius: 0.3em;
+	font-size: 120%;
+}
+
+button:hover {
+	background: rgba(33, 43, 49, 0.9);
+	color: #EFF5FA;
+}
+
+button:active {
+	background: rgba(245, 244, 196, 0.5);
+}
+
+input[type="number"] {
+	width: 3%;
+}
+
+li {
+	list-style-type: none;
+	display: inline;
+}
+
+h3 {
+	font-size: 140%;
+	margin-bottom: 0;
+}
+
+#schoolName {
+	font-size: 170%;
+}
+
+#loadData {
+	float: right;
+	margin-right: 30%;
+	font-size: 150%;
+	background: rgba(0, 51, 153, 0.9);
+	padding: 0.5% 0.5% 0.5% 0.5%;
+}
+
+#calc {
+	float: right;
+	margin-top: 3%;
+	font-size: 230%;
+	background: rgba(0, 51, 153, 1);
+	padding: 0.5% 0.5% 0.5% 0.5%;
+	border: 0.4vw solid #F5F264;
+}
+
+li > button {
+	background: none;
+	cursor: default;
+}
+
+#saveTeacher {
+	margin-top: 1vw;
+}
+
+#timetableHeader{
+	font-size: 200%;
+}
+
+table {
+	margin-top: 4vw;
+	font-size: 180%;
+	border-collapse: collapse;
+	max-width: 100%;
+}
+
+td {
+	border: 0.5vw solid black;
+	padding: 1%;
+	text-align: center;
+	min-width: 8vw;
+}
+
+tr:nth-child(odd) {
+	background: #EAF2D3;
+}
+
+tr:nth-child(even) {
+	background: rgba(0, 51, 153, 0.9);
+	color: #EFF5FA;
+}
