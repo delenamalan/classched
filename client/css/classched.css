@@ -16,11 +16,6 @@ h1 {
 	clear: both;
 }
 
-#timetableHeader {
-	float: left;
-	margin-bottom: 2vw;
-}
-
 @font-face {
 	font-family: Lepatin;
 	src: url("OSP_Le-patin-helvete.ttf");

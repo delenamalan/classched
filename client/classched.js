@@ -103,7 +103,7 @@ Session.set("teachers", []);
      }
      table.setAttribute("style", "display:block");
      var row, cell;
-     var numPeriods = tt[0].timetable.length;
+     var numPeriods = tt.timetable[0].length;
      row = table.insertRow(0);
     cell = row.insertCell(period);
      for (var period = 0; period < numPeriods; period++) {
