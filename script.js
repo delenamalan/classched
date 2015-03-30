@@ -1,0 +1,1 @@
+Timetables = new Mongo.Collection("timetables");
