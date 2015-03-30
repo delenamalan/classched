@@ -14,6 +14,12 @@ h1 {
 	padding-top: 0;
 	float: left;
 	clear: both;
+	margin-bottom: 0;
+}
+
+#timetableHeader {
+	float: left;
+	margin-bottom: 2vw;
 }
 
 @font-face {
@@ -129,10 +135,14 @@ li > button {
 
 #timetableHeader{
 	font-size: 200%;
+	float: left;
+	padding-top: 1.5vw;
+	width: 100%;
 }
 
 table {
-	margin-top: 4vw;
+	float: left;
+	margin-top: 1vw;
 	font-size: 180%;
 	border-collapse: collapse;
 	max-width: 100%;
