@@ -1,3 +1,4 @@
+ // Sample data begin
  var daysInCycle = 5;
  var periodsInDay = 6;
  var teachers = [{
@@ -92,47 +93,60 @@
      name: "Gr12",
      classes: ["Afr12", "Math12", "Life12", "Bib10", "Phy12"]
  }];
+// Sample data end
 
  Meteor.startup(function() {
- 	var tt = [];
- 	var st = [];
-    initialiseTimetables(tt, st);
+     var tt = [];
+     var st = [];
+     initialiseTimetables(tt, st);
      Meteor.methods({
          calculateTimetables: function(teachersc, studentsc, daysInCyclec, periodsInDayc) {
-         	 Timetables.remove();
-         	 teachers = teachersc;
-         	 students = studentsc;
-         	 daysInCycle = daysInCyclec;
-         	 periodsInDay = periodsInDayc;
-			initialiseTimetables(tt, st);
-             if (!calcTimetable(0, 0, tt, st, studentsWithClass(teachers[0].classes[0].name))) {
-             	return [];
+             Timetables.remove();
+             teachers = teachersc;
+             students = studentsc;
+             daysInCycle = daysInCyclec;
+             periodsInDay = periodsInDayc;
+             initialiseTimetables(tt, st);
+             if (!calcTimetables(0, 0, tt, st, studentsWithClass(teachers[0].classes[0].name))) {
+                 return [];
              } else {
-             	for (var t = 0; t < teachers.length; t++) {
-             		Timetables.insert({name : teachers[t].name, timetable : tt[t]});
-             	}
-             	for (var s = 0; s < students.length; s++) {
-             		Timetables.insert({name : students[s].name, timetable : st[s]});
-             	}
-             	console.log(Timetables.findOne());
-             	return true;
+                 for (var t = 0; t < teachers.length; t++) {
+                     Timetables.insert({
+                         name: teachers[t].name,
+                         timetable: tt[t]
+                     });
+                 }
+                 for (var s = 0; s < students.length; s++) {
+                     Timetables.insert({
+                         name: students[s].name,
+                         timetable: st[s]
+                     });
+                 }
+                 console.log(Timetables.findOne());
+                 return true;
              }
          },
-         getTeachers : function() {
-         	return teachers;
+         getTeachers: function() {
+             return teachers;
          },
-         getStudents : function() {
-         	return students;
+         getStudents: function() {
+             return students;
          },
-         getDaysInCycle : function() {
-         	return daysInCycle;
+         getDaysInCycle: function() {
+             return daysInCycle;
          },
-         getPeriodsInDay : function() {
-         	return periodsInDay;
+         getPeriodsInDay: function() {
+             return periodsInDay;
          }
      })
  });
 
+/**
+ * Return array with the student indexes of students that take a given course.
+ *
+ * @param studClass Class for the students to have.
+ * @return Array of indexes of students in the <code>students</code> array.
+ */
  function studentsWithClass(studClass) {
      var swc = [];
      for (s = 0; s < students.length; s++) {
@@ -147,13 +161,15 @@
  }
 
  /*
-  * ti Index of current teacher in teachers
-  * ci Index of current student in students
-  * tt Timetables of teachers
-  * st Timetables of students
-  * swc Students who have the current class
+  * Calculate the timetable of the teachers stored in <code>teachers</code> and the students stored in <code>students</code>.
+  *
+  * @param ti Index of current teacher in teachers
+  * @param ci Index of current student in students
+  * @param tt Timetables of teachers
+  * @param st Timetables of students
+  * @param swc Students who have the current class
   */
- function calcTimetable(ti, ci, tt, st, swc) {
+ function calcTimetables(ti, ci, tt, st, swc) {
      var numClasses = teachers[ti].classes[ci].periods;
      var classDaysComb = [];
      nchoosec(daysInCycle - 1, numClasses - 1, 0, 0, [], classDaysComb); //change
@@ -217,7 +233,7 @@
                  }
                  // put changes in timetables
                  changeTimetables(ti, tt, st, classComb, periodComb, swc, teachers[ti].classes[ci].name);
-                 if (calcTimetable(nextti, nextci, tt, st, studentsWithClass(teachers[nextti].classes[nextci].name))) {
+                 if (calcTimetables(nextti, nextci, tt, st, studentsWithClass(teachers[nextti].classes[nextci].name))) {
                      return true;
                  } else {
                      // reverse changes
@@ -229,18 +245,34 @@
      return false;
  }
 
+ /**
+  * Add a certain class (or blank if no class) to the timetable on the given days and periods.
+  *
+  * @param ti Index of teacher who teaches the class.
+  * @param tt Teacher timetables.
+  * @param st Student timetables.
+  * @param days Array of days on which this class should be held.
+  * @param periods Array of periods corresponding to the days in which this class should be held.
+  * @param swc Array of students who take this class.
+  * @param className Name of class to be used on the timetables.
+  */
  function changeTimetables(ti, tt, st, days, periods, swc, className) {
      for (var d = 0; d < days.length; d++) {
          var day = days[d];
-             var period = periods[d];
-             tt[ti][day][period] = className;
-             for (var s = 0; s < swc.length; s++) {
-                 st[swc[s]][day][period] = className;
-             }
+         var period = periods[d];
+         tt[ti][day][period] = className;
+         for (var s = 0; s < swc.length; s++) {
+             st[swc[s]][day][period] = className;
+         }
      }
  }
 
-
+/*
+ * Initialise the timetables by using ' ' for no class.
+ *
+ * @param tt Teacher timetables.
+ * @param st Student timetables.
+ */
  function initialiseTimetables(tt, st) {
      var day = [];
      for (var period = 0; period < periodsInDay; period++) {
@@ -262,6 +294,9 @@
      }
  }
 
+ /*
+  * Log the timetables on the console (used for testing purposes).
+  */
  function printTimetables(tt, st) {
      console.log("Teacher timetables");
      for (var t = 0; t < teachers.length; t++) {
@@ -279,11 +314,15 @@
      }
  }
 
- /* nchoosec(n, c, v, i, cur, cs)
-  * @param v Current vertex
-  * @param i Index in c
-  * @param cur Current permutation
-  * @param cs All permutations
+ /* 
+  * Calculates all the possible results of choosing c numbers from the set of numbers in the range 0 to v-1.
+  *
+  * @param n Number of number to choose from and the number 1 more than the maximum number to choose from.
+  * @param c The number of numbers that can be chosen.
+  * @param v v'th number being chosen.
+  * @param i Current number being chosen.
+  * @param cur Current choice
+  * @param cs All choices
   */
  function nchoosec(n, c, v, i, cur, cs) {
      var le = cur.length;
@@ -302,11 +341,14 @@
  }
 
  /*
-  * n Number of digits in code
-  * p Number of possible digits
-  * i Index in code
-  * cur Current code
-  * perms All codes
+  * Calculates all the possible results of choosing p numbers from the set of numbers in the range 0 to n-1 
+  *  where the order of selection matters.
+  *
+  * @param n Number of digits in code.
+  * @param p Number of possible digits.
+  * @param i i'th number to be chosen.
+  * @param cur Current code.
+  * @param perms All codes.
   */
  function nPermutationsOfPeriods(n, p, i, cur, perms) {
      var le = cur.length;
