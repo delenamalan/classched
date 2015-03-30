@@ -93,7 +93,7 @@
      name: "Gr12",
      classes: ["Afr12", "Math12", "Life12", "Bib10", "Phy12"]
  }];
-// Sample data end
+ // Sample data end
 
  Meteor.startup(function() {
      var tt = [];
@@ -141,12 +141,12 @@
      })
  });
 
-/**
- * Return array with the student indexes of students that take a given course.
- *
- * @param studClass Class for the students to have.
- * @return Array of indexes of students in the <code>students</code> array.
- */
+ /**
+  * Return array with the student indexes of students that take a given course.
+  *
+  * @param studClass Class for the students to have.
+  * @return Array of indexes of students in the <code>students</code> array.
+  */
  function studentsWithClass(studClass) {
      var swc = [];
      for (s = 0; s < students.length; s++) {
@@ -267,12 +267,12 @@
      }
  }
 
-/*
- * Initialise the timetables by using ' ' for no class.
- *
- * @param tt Teacher timetables.
- * @param st Student timetables.
- */
+ /*
+  * Initialise the timetables by using ' ' for no class.
+  *
+  * @param tt Teacher timetables.
+  * @param st Student timetables.
+  */
  function initialiseTimetables(tt, st) {
      var day = [];
      for (var period = 0; period < periodsInDay; period++) {
@@ -341,7 +341,7 @@
  }
 
  /*
-  * Calculates all the possible results of choosing p numbers from the set of numbers in the range 0 to n-1 
+  * Calculates all the possible results of choosing p numbers from the set of numbers in the range 0 to n-1
   *  where the order of selection matters.
   *
   * @param n Number of digits in code.
