@@ -44,3 +44,7 @@ these times have to be consecutive
 
 ### Dependent variables (output)
 1. *The timetable*
+
+### Sources
+
+- [International Timetabling Competition](http://www.cs.qub.ac.uk/itc2007/)
